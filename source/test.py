@@ -5,6 +5,7 @@ from RainPaperRecord import RainPaperRecord
 from PressurePaperRecord import PressurePaperRecord
 from TemperaturePaperRecord import TemperaturePaperRecord
 from HumidityPaperRecord import HumidityPaperRecord
+from SolarShortPaperRecord import SolarShortPaperRecord
 
 # 畫出該圖的數值接受區域
 def draw_value_region(p, image):
@@ -105,12 +106,25 @@ def test_humidity():
   show_draw_data(t05, 'humidity_05')
   cv2.waitKey(0)
   
+def test_solar_short():
+  p01 = SolarShortPaperRecord(cv2.imread('../sample/solar_short_01.jpg'))
+  #p01 = SolarShortPaperRecord(cv2.imread('../sample/solar_medium_01.jpg'))
+  #p01 = SolarShortPaperRecord(cv2.imread('../sample/solar_long_01.jpg'))
+  
+  #img2 = p01.mask_blue_white()
+  img2 = p01.mask_text()
+  #img2 = p01.match_image()  
+  img2 = cv2.resize(img2, (0,0), fx=0.3, fy=0.3)
+  cv2.imshow('match', img2)
+  cv2.waitKey(0)
+  
+test_solar_short()
 #test_pressure()
-p = PressurePaperRecord(cv2.imread('../sample/pressure_04.png'))
-img2 = p.mask_text()
-img2 = cv2.resize(img2, (0,0), fx=0.5, fy=0.5)
-cv2.imshow('text_image', img2)
-cv2.waitKey(0)
+#p = PressurePaperRecord(cv2.imread('../sample/pressure_04.png'))
+#img2 = p.mask_text()
+#img2 = cv2.resize(img2, (0,0), fx=0.5, fy=0.5)
+#cv2.imshow('text_image', img2)
+#cv2.waitKey(0)
 
   
 '''
