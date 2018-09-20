@@ -153,14 +153,24 @@ class PaperRecord:
     
     img = self.src_image
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    return cv2.bitwise_or(gray, cv2.bitwise_not(self.mask_grid()))
+    
+    mask = self.mask_grid()
+    if (mask is None):
+      return gray
+      
+    return cv2.bitwise_or(gray, cv2.bitwise_not(mask))
   
   # 過濾出文字與紀錄線
   def filter_text_gray(self):
 
     img = self.src_image
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    return cv2.bitwise_or(gray, cv2.bitwise_not(self.mask_text()))
+    
+    mask = self.mask_text()
+    if (mask is None):
+      return gray
+    
+    return cv2.bitwise_or(gray, cv2.bitwise_not(mask))
 
   # 經過surf計算 key_query, desc_query
   def surf(self):
@@ -196,12 +206,12 @@ class PaperRecord:
     dst_pts = np.float32([ key2[m.trainIdx].pt for m in good ]).reshape(-1,1,2)
     self.image_matrix_inv, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC,5.0)
     
-    # 移除形變項目，讓正反轉換正確
-    self.image_matrix_inv[2][0] = 0.
-    self.image_matrix_inv[2][1] = 0.
-  
-    # m_image 為圖形轉換的矩陣
-    self.image_matrix = np.linalg.inv(self.image_matrix_inv)
+    if (self.image_matrix_inv is not None):
+      # 移除形變項目，讓正反轉換正確
+      self.image_matrix_inv[2][0] = 0.
+      self.image_matrix_inv[2][1] = 0.
+      # m_image 為圖形轉換的矩陣
+      self.image_matrix = np.linalg.inv(self.image_matrix_inv)
     
   # 傳回兩張圖surf比對的結果
   def match_image(self):
