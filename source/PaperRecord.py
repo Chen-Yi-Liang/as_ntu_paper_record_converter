@@ -83,7 +83,7 @@ class PaperRecord:
     for i in range(self.value_region[1], self.value_region[3]):
       for y in yarray[i]:
         result.append([y, float(i)])
-
+       
     # 計算最長折線
     for i in range(len(result)):
       parent_j = -1
@@ -110,9 +110,11 @@ class PaperRecord:
         
     # 找出最長的摺線終點 max_i
     max_i = -1
-    for i in range(1, len(result)):
-      if (result[i][2] > result[max_i][2]):
-        max_i = i
+    if (len(result) > 0):
+      max_i = 0
+      for i in range(1, len(result)):
+        if (result[i][2] > result[max_i][2]):
+          max_i = i
         
     # 抽出最長的折線
     max_p = max_i
@@ -120,7 +122,7 @@ class PaperRecord:
     while (max_p != -1):
       out_text.insert(0, [result[max_p][0], result[max_p][1]])
       max_p = result[max_p][3]
-        
+
     return out_text
   
   # 將a中的值，相近的點值合併。
