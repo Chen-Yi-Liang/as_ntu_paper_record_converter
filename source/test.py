@@ -9,6 +9,7 @@ from SolarShortPaperRecord import SolarShortPaperRecord
 from SolarLongPaperRecord import SolarLongPaperRecord
 from SolarMediumPaperRecord import SolarMediumPaperRecord
 from OldRainPaperRecord import OldRainPaperRecord
+from PaperRecordTools import *
 
 # 畫出該圖的數值接受區域
 def draw_value_region(p, image):
@@ -104,26 +105,26 @@ def show_draw_solar_data(p, name):
     
 def test_rain():
   rain01 = RainPaperRecord(cv2.imread('../sample/rain_01.png'))
-  #rain02 = RainPaperRecord(cv2.imread('../sample/rain_02.png'))
-  #rain03 = RainPaperRecord(cv2.imread('../sample/rain_03.png'))
+  rain02 = RainPaperRecord(cv2.imread('../sample/rain_02.png'))
+  rain03 = RainPaperRecord(cv2.imread('../sample/rain_03.png'))
   show_draw_data(rain01, 'rain_01')
-  #show_draw_data(rain02, 'rain_02')
-  #show_draw_data(rain03, 'rain_03')
+  show_draw_data(rain02, 'rain_02')
+  show_draw_data(rain03, 'rain_03')
   cv2.waitKey(0)
   
 def test_old_rain():
   #rain00 = OldRainPaperRecord(cv2.imread('../sample/old_rain_00.jpg'))
   rain01 = OldRainPaperRecord(cv2.imread('../sample/old_rain_01.jpg'))
   rain02 = OldRainPaperRecord(cv2.imread('../sample/old_rain_02.jpg'))
-  rain03 = OldRainPaperRecord(cv2.imread('../sample/old_rain_03.jpg'))
-  rain04 = OldRainPaperRecord(cv2.imread('../sample/old_rain_04.jpg'))
-  rain05 = OldRainPaperRecord(cv2.imread('../sample/old_rain_05.jpg'))
+  #rain03 = OldRainPaperRecord(cv2.imread('../sample/old_rain_03.jpg'))
+  #rain04 = OldRainPaperRecord(cv2.imread('../sample/old_rain_04.jpg'))
+  #rain05 = OldRainPaperRecord(cv2.imread('../sample/old_rain_05.jpg'))
   #show_draw_data(rain00, 'old_rain_00')
   show_draw_data(rain01, 'old_rain_01')
   show_draw_data(rain02, 'old_rain_02')
-  show_draw_data(rain03, 'old_rain_03')
-  show_draw_data(rain04, 'old_rain_04')
-  show_draw_data(rain05, 'old_rain_05')
+  #show_draw_data(rain03, 'old_rain_03')
+  #show_draw_data(rain04, 'old_rain_04')
+  #show_draw_data(rain05, 'old_rain_05')
   cv2.waitKey(0)
   
 def test_pressure():
@@ -186,9 +187,31 @@ def test_solar_medium():
   show_draw_solar_data(p02, 'solar_medium_02');
   cv2.waitKey(0)
  
-test_old_rain() 
+#test_old_rain() 
 #test_rain()
 #test_pressure()
+
+#draw_match(OldRainPaperRecord(cv2.imread('../sample/old_rain_03.jpg')), 'old_rain_03', write_image = True)
+#draw_match(PressurePaperRecord(cv2.imread('../sample/pressure_02.png')), 'pressure_02', write_image = True)
+#draw_match(SolarShortPaperRecord(cv2.imread('../sample/solar_short_02.jpg')), 'solar_short_02', write_image = True)
+#cv2.waitKey(0)
+
+#write_csv(RainPaperRecord(cv2.imread('../sample/rain_02.png')), 'rain_02')
+#write_csv(PressurePaperRecord(cv2.imread('../sample/pressure_02.png')), 'pressure_02')
+#write_csv(TemperaturePaperRecord(cv2.imread('../sample/temp_03.png')), 'temp_03')
+#write_csv(HumidityPaperRecord(cv2.imread('../sample/temp_03.png')), 'humidity_03')
+#write_solar_csv(SolarLongPaperRecord(cv2.imread('../sample/solar_long_01.jpg')), 'solar_long_01')
+#write_solar_csv(SolarMediumPaperRecord(cv2.imread('../sample/solar_medium_01.jpg')), 'solar_medium_01')
+#write_solar_csv(SolarShortPaperRecord(cv2.imread('../sample/solar_short_01.jpg')), 'solar_short_01')
+
+write_mask_text(RainPaperRecord(cv2.imread('../sample/rain_02.png')), 'rain_02', write_image = True )
+write_mask_text(PressurePaperRecord(cv2.imread('../sample/pressure_02.png')), 'pressure_02', write_image = True)
+write_mask_text(TemperaturePaperRecord(cv2.imread('../sample/temp_03.png')), 'temp_03', write_image = True)
+write_mask_text(HumidityPaperRecord(cv2.imread('../sample/temp_03.png')), 'humidity_03', write_image = True)
+write_mask_text(SolarLongPaperRecord(cv2.imread('../sample/solar_long_01.jpg')), 'solar_long_01', write_image = True)
+write_mask_text(SolarMediumPaperRecord(cv2.imread('../sample/solar_medium_01.jpg')), 'solar_medium_01', write_image = True)
+write_mask_text(SolarShortPaperRecord(cv2.imread('../sample/solar_short_01.jpg')), 'solar_short_01', write_image = True)
+cv2.waitKey(0)
 
 #p = OldRainPaperRecord(cv2.imread('../sample/old_rain_03.jpg'))
 
@@ -200,10 +223,6 @@ test_old_rain()
 #grid_image = cv2.resize(grid_image, (0,0), fx=0.3, fy=0.3)
 #cv2.imshow('grid_image', grid_image)
  
-#match_image = p.match_image()
-#match_image = cv2.resize(match_image, (0,0), fx=0.3, fy=0.3)
-#cv2.imshow('match_image', match_image)
-
 #cv2.waitKey(0)
  
 '''

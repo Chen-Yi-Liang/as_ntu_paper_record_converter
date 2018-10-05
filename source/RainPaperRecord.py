@@ -11,6 +11,7 @@ class RainPaperRecord(PaperRecord):
     self.image_to_value = None # 圖形對應到數值的轉換矩陣(2x3)
     self.value_to_image = None # 數值對應到圖形的轉換矩陣(2x3)
     self.value_region = (0, 0, 20, 22 * 60)  # 圖形的裁切區域
+    self.v_t0 = 9 # 起始時間(文字輸出用)
   
   def standard(self):
     if (RainPaperRecord.paper_record == None):

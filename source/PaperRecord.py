@@ -13,6 +13,7 @@ class PaperRecord:
     self.image_matrix = None # 圖形轉換矩陣(從此圖轉換到standard)
     self.image_matrix_inv = None # 圖形轉換矩陣(從standard轉換到此圖)
     self.value_region = (0, 0, 1, 1)  # 圖形的裁切區域
+    self.v_t0 = 0 # 起始時間(文字輸出用)
     
   def standard(self):
     return None
@@ -209,6 +210,7 @@ class PaperRecord:
     self.image_matrix_inv, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC,5.0)
     
     if (self.image_matrix_inv is not None):
+      print(self.image_matrix_inv)
       # 移除形變項目，讓正反轉換正確
       self.image_matrix_inv[2][0] = 0.
       self.image_matrix_inv[2][1] = 0.

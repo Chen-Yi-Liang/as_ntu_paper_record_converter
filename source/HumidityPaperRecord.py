@@ -12,6 +12,7 @@ class HumidityPaperRecord(PaperRecord):
     self.image_to_value = None # 圖形對應到數值的轉換矩陣(2x3)
     self.value_to_image = None # 數值對應到圖形的轉換矩陣(2x3)
     self.value_region = (0, 0, 100, 25 * 60)  # 圖形的裁切區域
+    self.v_t0 = 8 # 起始時間(文字輸出用)
     
     self.image_r = 1183.637 # 估算出來氣壓表的弧線半徑
     self.image_x0 = 483. # 估算出來氣壓表 08:00 的圓弧中心 x0, y0

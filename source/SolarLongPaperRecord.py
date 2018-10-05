@@ -22,6 +22,7 @@ class SolarLongPaperRecord(SolarPaperRecord):
     self.max_r = 1892.667897 # 容許的最大燒孔與圓心距離
     
     self.value_region = (self.min_r, 0, self.max_r, 12 * 60)  # 圖形的裁切區域
+    self.v_t0 = 6 # 起始時間(文字輸出用)
   
   def standard(self):
     if (SolarLongPaperRecord.paper_record == None):
