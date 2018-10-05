@@ -7,8 +7,8 @@ class SolarMediumPaperRecord(SolarPaperRecord):
   
   paper_record = None
   
-  def __init__(self, image):
-    super(SolarMediumPaperRecord, self).__init__(image)
+  def __init__(self, image = None, file_name = None, name = None):
+    super(SolarMediumPaperRecord, self).__init__(image, file_name, name)
     self.image_to_value = None # 圖形對應到數值的轉換矩陣(2x3)
     self.value_to_image = None # 數值對應到圖形的轉換矩陣(2x3)
 
@@ -41,8 +41,7 @@ class SolarMediumPaperRecord(SolarPaperRecord):
   
   def standard(self):
     if (SolarMediumPaperRecord.paper_record == None):
-      img = cv2.imread('../sample/solar_medium_00.jpg')
-      SolarMediumPaperRecord.paper_record = SolarMediumPaperRecord(img)
+      SolarMediumPaperRecord.paper_record = SolarMediumPaperRecord(file_name = '../sample/solar_medium_00.jpg')
       print('create SolarMediumPaperRecord standard');
     return SolarMediumPaperRecord.paper_record
  

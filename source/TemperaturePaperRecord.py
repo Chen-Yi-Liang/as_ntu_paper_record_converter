@@ -7,8 +7,8 @@ class TemperaturePaperRecord(PaperRecord):
   
   paper_record = None
   
-  def __init__(self, image):
-    super(TemperaturePaperRecord, self).__init__(image)
+  def __init__(self, image = None, file_name = None, name = None):
+    super(TemperaturePaperRecord, self).__init__(image, file_name, name)
     self.image_to_value = None # 圖形對應到數值的轉換矩陣(2x3)
     self.value_to_image = None # 數值對應到圖形的轉換矩陣(2x3)
     self.value_region = (-15, 0, 40, 25 * 60)  # 圖形的裁切區域
@@ -24,8 +24,7 @@ class TemperaturePaperRecord(PaperRecord):
   
   def standard(self):
     if (TemperaturePaperRecord.paper_record == None):
-      img = cv2.imread('../sample/temp_00.png')
-      TemperaturePaperRecord.paper_record = TemperaturePaperRecord(img)
+      TemperaturePaperRecord.paper_record = TemperaturePaperRecord(file_name = '../sample/temp_00.png')
       print('create TemperaturePaperRecord standard');
     return TemperaturePaperRecord.paper_record
   

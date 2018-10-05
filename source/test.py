@@ -91,7 +91,7 @@ def show_draw_data(p, name):
   draw_value_region(p, image)
   
   out_name = "../out/" + name + "_out.png"
-  cv2.imwrite(out_name, image)
+  #cv2.imwrite(out_name, image)
   image = cv2.resize(image, (0,0), fx=0.3, fy=0.3)
   cv2.imshow(name, image)
     
@@ -104,92 +104,114 @@ def show_draw_solar_data(p, name):
   cv2.imshow(name, image)
     
 def test_rain():
-  rain01 = RainPaperRecord(cv2.imread('../sample/rain_01.png'))
-  rain02 = RainPaperRecord(cv2.imread('../sample/rain_02.png'))
-  rain03 = RainPaperRecord(cv2.imread('../sample/rain_03.png'))
-  show_draw_data(rain01, 'rain_01')
-  show_draw_data(rain02, 'rain_02')
-  show_draw_data(rain03, 'rain_03')
+  files = [\
+    '../sample/rain_01.png',\
+    '../sample/rain_02.png',\
+    '../sample/rain_03.png']
+
+  for file_name in files:
+    r = RainPaperRecord(file_name)
+    show_draw_data(r, r.name)
+
   cv2.waitKey(0)
   
 def test_old_rain():
-  #rain00 = OldRainPaperRecord(cv2.imread('../sample/old_rain_00.jpg'))
-  rain01 = OldRainPaperRecord(cv2.imread('../sample/old_rain_01.jpg'))
-  rain02 = OldRainPaperRecord(cv2.imread('../sample/old_rain_02.jpg'))
-  #rain03 = OldRainPaperRecord(cv2.imread('../sample/old_rain_03.jpg'))
-  #rain04 = OldRainPaperRecord(cv2.imread('../sample/old_rain_04.jpg'))
-  #rain05 = OldRainPaperRecord(cv2.imread('../sample/old_rain_05.jpg'))
-  #show_draw_data(rain00, 'old_rain_00')
-  show_draw_data(rain01, 'old_rain_01')
-  show_draw_data(rain02, 'old_rain_02')
-  #show_draw_data(rain03, 'old_rain_03')
-  #show_draw_data(rain04, 'old_rain_04')
-  #show_draw_data(rain05, 'old_rain_05')
+  files = [\
+    '../sample/old_rain_01.jpg',\
+    '../sample/old_rain_02.jpg',\
+    '../sample/old_rain_03.jpg',\
+    '../sample/old_rain_04.jpg',\
+    '../sample/old_rain_05.jpg']
+    
+  for file_name in files:
+    r = OldRainPaperRecord(file_name)
+    show_draw_data(r, r.name)
+
   cv2.waitKey(0)
   
 def test_pressure():
-  p01 = PressurePaperRecord(cv2.imread('../sample/pressure_01.png'))
-  p02 = PressurePaperRecord(cv2.imread('../sample/pressure_02.png'))
-  p03 = PressurePaperRecord(cv2.imread('../sample/pressure_03.png'))
-  p04 = PressurePaperRecord(cv2.imread('../sample/pressure_04.png'))
-  show_draw_data(p01, 'pressure_01')
-  show_draw_data(p02, 'pressure_02')
-  show_draw_data(p03, 'pressure_03')
-  show_draw_data(p04, 'pressure_04')
+  files = [\
+    '../sample/pressure_01.png',\
+    '../sample/pressure_02.png',\
+    '../sample/pressure_03.png',\
+    '../sample/pressure_04.png'];
+    
+  for file_name in files:
+    r = PressurePaperRecord(file_name)
+    show_draw_data(r, r.name)
+
   cv2.waitKey(0)
   
 def test_temperature():
-  #t01 = TemperaturePaperRecord(cv2.imread('../sample/temp_01.png'))
-  #t02 = TemperaturePaperRecord(cv2.imread('../sample/temp_02.png'))
-  #t03 = TemperaturePaperRecord(cv2.imread('../sample/temp_03.png'))
-  #t04 = TemperaturePaperRecord(cv2.imread('../sample/temp_04.png'))
-  t05 = TemperaturePaperRecord(cv2.imread('../sample/temp_05.png')) 
-  #show_draw_data(t01, 'temp_01')
-  #show_draw_data(t02, 'temp_02')
-  #show_draw_data(t03, 'temp_03')
-  #show_draw_data(t04, 'temp_04')
-  show_draw_data(t05, 'temp_05')
+  files = [\
+    '../sample/temp_01.png',\
+    '../sample/temp_02.png',\
+    '../sample/temp_03.png',\
+    '../sample/temp_04.png',\
+    '../sample/temp_05.png'];
+    
+  for file_name in files:
+    r = TemperaturePaperRecord(file_name)
+    show_draw_data(r, r.name)
+
   cv2.waitKey(0)
   
 def test_humidity():
-  #t01 = HumidityPaperRecord(cv2.imread('../sample/temp_01.png'))
-  #t02 = HumidityPaperRecord(cv2.imread('../sample/temp_02.png'))
-  #t03 = HumidityPaperRecord(cv2.imread('../sample/temp_03.png'))
-  #t04 = HumidityPaperRecord(cv2.imread('../sample/temp_04.png'))
-  t05 = HumidityPaperRecord(cv2.imread('../sample/temp_05.png'))
-  #show_draw_data(t01, 'humidity_01')
-  #show_draw_data(t02, 'humidity_02')
-  #show_draw_data(t03, 'humidity_03')
-  #show_draw_data(t04, 'humidity_04')
-  show_draw_data(t05, 'humidity_05')
+  files = [\
+    ['../sample/temp_01.png','humidity_01'],\
+    ['../sample/temp_02.png','humidity_02'],\
+    ['../sample/temp_03.png','humidity_03'],\
+    ['../sample/temp_04.png','humidity_04'],\
+    ['../sample/temp_05.png','humidity_05']];    
+    
+  for file in files:
+    r = TemperaturePaperRecord(file_name = file[0], name = file[1])
+    show_draw_data(r, r.name)
+
   cv2.waitKey(0)
   
 def test_solar_short():
-  p01 = SolarShortPaperRecord(cv2.imread('../sample/solar_short_01.jpg'))
-  p02 = SolarShortPaperRecord(cv2.imread('../sample/solar_short_02.jpg'))
-  p03 = SolarShortPaperRecord(cv2.imread('../sample/solar_short_03.jpg'))
-  show_draw_solar_data(p01, 'solar_short_01');
-  show_draw_solar_data(p02, 'solar_short_02');
-  show_draw_solar_data(p03, 'solar_short_03');
+  files = [\
+    '../sample/solar_short_01.jpg',\
+    '../sample/solar_short_02.jpg',\
+    '../sample/solar_short_03.jpg'];
+    
+  for file_name in files:
+    r = SolarShortPaperRecord(file_name)
+    show_draw_solar_data(r, r.name)
+
   cv2.waitKey(0)
   
 def test_solar_long():
-  p01 = SolarLongPaperRecord(cv2.imread('../sample/solar_long_01.jpg'))
-  p02 = SolarLongPaperRecord(cv2.imread('../sample/solar_long_02.jpg'))
-  show_draw_solar_data(p01, 'solar_long_01');
-  show_draw_solar_data(p02, 'solar_long_02');
+  files = [\
+    '../sample/solar_long_01.jpg',\
+    '../sample/solar_long_02.jpg'];
+    
+  for file_name in files:
+    r = SolarLongPaperRecord(file_name)
+    show_draw_solar_data(r, r.name)
+
   cv2.waitKey(0)
   
 def test_solar_medium():
-  p01 = SolarMediumPaperRecord(cv2.imread('../sample/solar_medium_01.jpg'))
-  p02 = SolarMediumPaperRecord(cv2.imread('../sample/solar_medium_02.jpg'))
-  show_draw_solar_data(p01, 'solar_medium_01');
-  show_draw_solar_data(p02, 'solar_medium_02');
+  files = [\
+    '../sample/solar_medium_01.jpg',\
+    '../sample/solar_medium_02.jpg'];
+    
+  for file_name in files:
+    r = SolarMediumPaperRecord(file_name)
+    show_draw_solar_data(r, r.name)
+
   cv2.waitKey(0)
  
 #test_old_rain() 
 #test_rain()
 #test_pressure()
+#test_temperature()
+#test_humidity()
+test_solar_long()
+#test_solar_medium()
+#test_solar_short()
 
 #draw_match(OldRainPaperRecord(cv2.imread('../sample/old_rain_03.jpg')), 'old_rain_03', write_image = True)
 #draw_match(PressurePaperRecord(cv2.imread('../sample/pressure_02.png')), 'pressure_02', write_image = True)
@@ -204,14 +226,14 @@ def test_solar_medium():
 #write_solar_csv(SolarMediumPaperRecord(cv2.imread('../sample/solar_medium_01.jpg')), 'solar_medium_01')
 #write_solar_csv(SolarShortPaperRecord(cv2.imread('../sample/solar_short_01.jpg')), 'solar_short_01')
 
-write_mask_text(RainPaperRecord(cv2.imread('../sample/rain_02.png')), 'rain_02', write_image = True )
-write_mask_text(PressurePaperRecord(cv2.imread('../sample/pressure_02.png')), 'pressure_02', write_image = True)
-write_mask_text(TemperaturePaperRecord(cv2.imread('../sample/temp_03.png')), 'temp_03', write_image = True)
-write_mask_text(HumidityPaperRecord(cv2.imread('../sample/temp_03.png')), 'humidity_03', write_image = True)
-write_mask_text(SolarLongPaperRecord(cv2.imread('../sample/solar_long_01.jpg')), 'solar_long_01', write_image = True)
-write_mask_text(SolarMediumPaperRecord(cv2.imread('../sample/solar_medium_01.jpg')), 'solar_medium_01', write_image = True)
-write_mask_text(SolarShortPaperRecord(cv2.imread('../sample/solar_short_01.jpg')), 'solar_short_01', write_image = True)
-cv2.waitKey(0)
+#write_mask_text(RainPaperRecord(cv2.imread('../sample/rain_02.png')), 'rain_02', write_image = True )
+#write_mask_text(PressurePaperRecord(cv2.imread('../sample/pressure_02.png')), 'pressure_02', write_image = True)
+#write_mask_text(TemperaturePaperRecord(cv2.imread('../sample/temp_03.png')), 'temp_03', write_image = True)
+#write_mask_text(HumidityPaperRecord(cv2.imread('../sample/temp_03.png')), 'humidity_03', write_image = True)
+#write_mask_text(SolarLongPaperRecord(cv2.imread('../sample/solar_long_01.jpg')), 'solar_long_01', write_image = True)
+#write_mask_text(SolarMediumPaperRecord(cv2.imread('../sample/solar_medium_01.jpg')), 'solar_medium_01', write_image = True)
+#write_mask_text(SolarShortPaperRecord(cv2.imread('../sample/solar_short_01.jpg')), 'solar_short_01', write_image = True)
+#cv2.waitKey(0)
 
 #p = OldRainPaperRecord(cv2.imread('../sample/old_rain_03.jpg'))
 

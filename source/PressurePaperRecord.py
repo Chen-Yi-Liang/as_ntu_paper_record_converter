@@ -7,8 +7,8 @@ class PressurePaperRecord(PaperRecord):
   
   paper_record = None
   
-  def __init__(self, image):
-    super(PressurePaperRecord, self).__init__(image)
+  def __init__(self, image = None, file_name = None, name = None):
+    super(PressurePaperRecord, self).__init__(image, file_name, name)
     self.image_to_value = None # 圖形對應到數值的轉換矩陣(2x3)
     self.value_to_image = None # 數值對應到圖形的轉換矩陣(2x3)
     self.value_region = (940, 0, 1045, 26 * 60)  # 圖形的裁切區域
@@ -24,8 +24,7 @@ class PressurePaperRecord(PaperRecord):
   
   def standard(self):
     if (PressurePaperRecord.paper_record == None):
-      img = cv2.imread('../sample/pressure_00.png')
-      PressurePaperRecord.paper_record = PressurePaperRecord(img)
+      PressurePaperRecord.paper_record = PressurePaperRecord(file_name = '../sample/pressure_00.png')
       print('create PressurePaperRecord standard');
     return PressurePaperRecord.paper_record
   

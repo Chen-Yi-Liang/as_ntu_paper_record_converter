@@ -6,8 +6,8 @@ class OldRainPaperRecord(RainPaperRecord):
   
   paper_record = None
   
-  def __init__(self, image):
-    super(OldRainPaperRecord, self).__init__(image)
+  def __init__(self, image = None, file_name = None, name = None):
+    super(OldRainPaperRecord, self).__init__(image, file_name, name)
     self.image_to_value = None # 圖形對應到數值的轉換矩陣(2x3)
     self.value_to_image = None # 數值對應到圖形的轉換矩陣(2x3)
     self.value_region = (0, 0, 20, 24 * 60)  # 圖形的裁切區域
@@ -33,8 +33,7 @@ class OldRainPaperRecord(RainPaperRecord):
   
   def standard(self):
     if (OldRainPaperRecord.paper_record == None):
-      img = cv2.imread('../sample/old_rain_00.jpg')
-      OldRainPaperRecord.paper_record = OldRainPaperRecord(img)
+      OldRainPaperRecord.paper_record = OldRainPaperRecord(file_name = '../sample/old_rain_00.jpg')
       print('create OldRainPaperRecord standard');
     return OldRainPaperRecord.paper_record
      

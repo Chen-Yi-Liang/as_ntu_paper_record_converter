@@ -5,8 +5,8 @@ from PaperRecord import PaperRecord
 
 class SolarPaperRecord(PaperRecord):
   
-  def __init__(self, image):
-    super(SolarPaperRecord, self).__init__(image)
+  def __init__(self, image = None, file_name = None, name = None):
+    super(SolarPaperRecord, self).__init__(image, file_name, name)
     self.image_to_value = None # 圖形對應到數值的轉換矩陣(2x3)
     self.value_to_image = None # 數值對應到圖形的轉換矩陣(2x3)
     

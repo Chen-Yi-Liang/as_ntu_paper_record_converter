@@ -4,8 +4,26 @@ import numpy as np
 class PaperRecord:
   
   # 建構式(指定圖片)
-  def __init__(self, image):
+  def __init__(self, image = None, file_name = None, name = None):
     self.src_image = image  # 原始圖片
+    self.file_name = file_name # 圖形的檔案名稱
+    self.name = name # 圖形的名稱
+        
+    # 多形自動處理
+    if issubclass(type(self.src_image), str):
+      self.file_name = self.src_image
+      self.src_image = None
+        
+    # 資料補足
+    if (self.src_image is None) and (self.file_name is not None):
+      self.src_image = cv2.imread(self.file_name)
+    
+    if (self.name is None) and (self.file_name is not None):
+      self.name = self.file_name.split('.')[-2].split('/')[-1].split('\\')[-1].split(':')[-1]
+      
+    if (self.name is None):
+      self.name = ("id:0x%0X" % id(self))
+    
     self.surf_key = None   # surf輸出的Key
     self.surf_desc = None  # surf輸出的座標
     self.surf_param = 1000 # surf計算時的閥值參數
@@ -210,7 +228,6 @@ class PaperRecord:
     self.image_matrix_inv, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC,5.0)
     
     if (self.image_matrix_inv is not None):
-      print(self.image_matrix_inv)
       # 移除形變項目，讓正反轉換正確
       self.image_matrix_inv[2][0] = 0.
       self.image_matrix_inv[2][1] = 0.
