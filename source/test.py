@@ -33,7 +33,7 @@ def test_old_rain():
     
   for file_name in files:
     r = OldRainPaperRecord(file_name)
-    show_draw_data(r)
+    show_draw_data(r, write_image = True)
 
   cv2.waitKey(0)
   
@@ -112,12 +112,12 @@ def test_solar_medium():
 
   cv2.waitKey(0)
  
-#test_old_rain() 
+test_old_rain() 
 #test_rain()
 #test_pressure()
 #test_temperature()
 #test_humidity()
-test_solar_long()
+#test_solar_long()
 #test_solar_medium()
 #test_solar_short()
 
