@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from pathlib import Path
 
 class PaperRecord:
   
@@ -11,15 +12,18 @@ class PaperRecord:
         
     # 多形自動處理
     if issubclass(type(self.src_image), str):
+      self.file_name = Path(self.src_image)
+      self.src_image = None
+    elif issubclass(type(self.src_image), Path):
       self.file_name = self.src_image
       self.src_image = None
-        
+            
     # 資料補足
     if (self.src_image is None) and (self.file_name is not None):
-      self.src_image = cv2.imread(self.file_name)
+      self.src_image = cv2.imread(str(self.file_name))
     
     if (self.name is None) and (self.file_name is not None):
-      self.name = self.file_name.split('.')[-2].split('/')[-1].split('\\')[-1].split(':')[-1]
+      self.name = str(self.file_name).split('.')[-2].split('/')[-1].split('\\')[-1].split(':')[-1]
       
     if (self.name is None):
       self.name = ("id:0x%0X" % id(self))
@@ -169,6 +173,9 @@ class PaperRecord:
     out.append(sum_v / count_v)
     return out
   
+  def match_gray(self):
+    return cv2.cvtColor(self.src_image, cv2.COLOR_BGR2GRAY)
+  
   # 過濾出網格點
   def filter_grid_gray(self):
     
@@ -198,7 +205,7 @@ class PaperRecord:
     
     if (self.surf_key is None) or (self.surf_desc is None):
       surf = cv2.xfeatures2d.SURF_create(self.surf_param)
-      self.surf_key, self.surf_desc = surf.detectAndCompute(self.filter_grid_gray(), None)
+      self.surf_key, self.surf_desc = surf.detectAndCompute(self.match_gray(), None)
     return self.surf_key, self.surf_desc
   
   # 跟standard比較計算match
