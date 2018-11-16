@@ -4,34 +4,32 @@ import matplotlib.pyplot as pyplot
 from SolarPaperRecord import SolarPaperRecord
 
 # 繪製一般輸出結果
-def show_draw_data(p, show_image = True, write_image = False):
+def show_draw_data(p, show_image = True, write_name = None):
   if issubclass(type(p), SolarPaperRecord):
-    show_draw_solar_data(p, show_image, write_image)
+    show_draw_solar_data(p, show_image, write_name)
   else:
-    show_draw_normal_data(p, show_image, write_image)
+    show_draw_normal_data(p, show_image, write_name)
 
 # 繪製除日照圖以外輸出結果
-def show_draw_normal_data(p, show_image = True, write_image = False):
+def show_draw_normal_data(p, show_image = True, write_name = None):
   image = p.src_image.copy()
   draw_data(p, image)
   draw_value_region(p, image)
   
-  if write_image:
-    out_name = "../out/" + p.name + "_out.png"
-    cv2.imwrite(out_name, image)
+  if write_name is not None:
+    cv2.imwrite(str(write_name), image)
     
   if show_image:
     image = cv2.resize(image, (0,0), fx=0.3, fy=0.3)
     cv2.imshow(p.name, image)
     
 # 繪製日照計圖輸出結果
-def show_draw_solar_data(p, show_image = True, write_image = False):
+def show_draw_solar_data(p, show_image = True, write_name = None):
   image = p.src_image.copy()
   draw_solar_data(p, image) 
   
-  if write_image:
-    out_name = "../out/" + p.name + "_out.png"
-    cv2.imwrite(out_name, image)
+  if write_name is not None:
+    cv2.imwrite(str(write_name), image)
   
   if show_image:
     image = cv2.resize(image, (0,0), fx=0.3, fy=0.3)
@@ -121,9 +119,17 @@ def interpolation_data(c, y):
 # 畫出該圖的數值點
 def draw_data(p, image):
   c = p.max_value_line()
+  line_p = None
+  line_v = None
   for v in c:
     i = p.image_coordiante(v)
     cv2.circle(image, (int(i[0]), int(i[1])), 1, (0, 255, 0))
+    
+    # 畫上連線
+    if (line_v is not None):
+      cv2.line(image, line_p, (int(i[0]), int(i[1])), (0, 255, 0))
+    line_p = (int(i[0]), int(i[1]))
+    line_v = v[0]
     # print("%02d:%02d %f" % ((v[1]//60) + 8, v[1]%60, v[0]))
     
   for i in range(p.value_region[1], p.value_region[3], 60):
